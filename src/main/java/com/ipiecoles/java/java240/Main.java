@@ -1,28 +1,55 @@
 package com.ipiecoles.java.java240;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        ProduitManager pm = new ProduitManager();
 
-        //on crée deux bitcoin service pour récupérer ou non le cache si besoin
+
+
+
+
+        //Stocker les beans dans l'ApplicationContext
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+
+        //Premiere solution
+        BitcoinService bitcoinServiceWithoutCache = ctx.getBean(BitcoinService.class);
+        //Solution Alternative si il n'y a qu'un seul bean crée, pas utilisable si plusieurs :
+        /*
+        * BitcoinService bitCoinServiceWithoutCache = ctx.getBean("BitCoinServiceWithoutCache", BitcoinService.class);
+        * */
+        //On supprime car on l'utilisait uniquement dans produit manager et qu'il y a eu injection direct dans pbean produit manager
+        //BitcoinService bitcoinServiceWithCache = ctx.getBean(BitcoinService.class);
+
+
+        //Ajout de cette ligne pour utilisation du bean, puis suppression quand création du bean pour produit manager avec injection
+        //WebPageManager webPageManager = ctx.getBean(WebPageManager.class);
+        //idem pour produit Manager
+        // Le bean est crée, plus nécessaire :
+        // ProduitManager pm = new ProduitManager();
+        ProduitManager pm = ctx.getBean(ProduitManager.class);
+
+
+
+       /* //on crée deux bitcoin service pour récupérer ou non le cache si besoin
         BitcoinService bitcoinServiceWithCache = new BitcoinService();
         bitcoinServiceWithCache.setForceRefresh(false);
         BitcoinService bitcoinServiceWithoutCache = new BitcoinService();
-        bitcoinServiceWithoutCache.setForceRefresh(true);
+        bitcoinServiceWithoutCache.setForceRefresh(true);*/
 
 
-        WebPageManager webPageManager = new WebPageManager();
+        // Idem on n'a plus besoin d'instancier ici :
+        // WebPageManager webPageManager = new WebPageManager();
 
-        pm.setWebPageManager(webPageManager);
-
-
+       /* pm.setWebPageManager(webPageManager);
         pm.setBitcoinService(bitcoinServiceWithCache);
         bitcoinServiceWithoutCache.setWebPageManager(webPageManager);
-        bitcoinServiceWithoutCache.setWebPageManager(webPageManager);
+        bitcoinServiceWithoutCache.setWebPageManager(webPageManager);*/
 
         System.out.println("Bienvenue !");
         while(true){
