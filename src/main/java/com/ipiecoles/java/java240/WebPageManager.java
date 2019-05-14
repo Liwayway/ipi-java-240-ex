@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java240;
 
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,9 +9,14 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.StringJoiner;
 
+
+@Component
 public class WebPageManager {
 
     private HashMap<String, String> cacheContent = new HashMap<>();
+    public WebPageManager(){
+        System.out.println("Instantiation du WebPageManager");
+    }
 
     /**
      * Fait une requête GET à l'url passée en paramètre

@@ -11,14 +11,11 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-
-
-
         //Stocker les beans dans l'ApplicationContext
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
 
         //Premiere solution
-        BitcoinService bitcoinServiceWithoutCache = ctx.getBean(BitcoinService.class);
+        BitcoinService bitcoinServiceWithoutCache = ctx.getBean("bitcoinServiceWithoutCache",BitcoinService.class);
         //Solution Alternative si il n'y a qu'un seul bean crée, pas utilisable si plusieurs :
         /*
         * BitcoinService bitCoinServiceWithoutCache = ctx.getBean("BitCoinServiceWithoutCache", BitcoinService.class);
