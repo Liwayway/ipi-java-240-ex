@@ -2,16 +2,21 @@ package com.ipiecoles.java.java240;
 
 
 import com.sun.webkit.WebPage;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-@Configuration
-@ComponentScan("com.ipiecoles.java.java240")
+
+@SpringBootApplication
 public class SpringConfig {
 //beans
 
+    public static void main(String[] args) {
+        SpringApplication.run(SpringConfig.class, args);
+    }
 
     @Bean(name="bitcoinServiceWithoutCache")
     @Scope("singleton")// Facultatif car scope singleton par défaut
